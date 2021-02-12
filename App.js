@@ -1,6 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, FlatList, Switch, Button, TextInput } from "react-native";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 /*
  * {
@@ -24,7 +26,7 @@ function TodoItem({ title, completed }) {
   );
 }
 
-export default function App() {
+function TodosScreen({ navigation }) {
   const [newTodo, setNewTodo] = useState('');
   const [todos, setTodos] = useState([]);
 
@@ -52,6 +54,10 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Button
+        title="Go home"
+        onPress={navigation.goBack}
+      />
       <TextInput
         onChangeText={handleNewTodoEdit}
         value={newTodo}
@@ -70,6 +76,31 @@ export default function App() {
       />
       <StatusBar style="auto" />
     </View>
+  );
+}
+
+function HomeScreen({ navigation }) {
+  return (
+    <View>
+      <Text>Hello, welcome to the app!</Text>
+      <Button
+        title="Go to todos"
+        onPress={() => navigation.navigate('Todos')}
+      />
+    </View>
+  );
+}
+
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Todos" component={TodosScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
