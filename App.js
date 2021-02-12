@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, FlatList, Switch, Modal, Button } from "react-native";
+import { StyleSheet, Text, View, FlatList, Switch, Button, TextInput } from "react-native";
 
 /*
  * {
@@ -25,17 +25,39 @@ function TodoItem({ title, completed }) {
 }
 
 export default function App() {
-  const [todos, setTodos] = React.useState([]);
+  const [newTodo, setNewTodo] = useState('');
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
     fetchTodos()
       .then(setTodos);
   }, []);
 
+  function handleNewTodoEdit(text) {
+    setNewTodo(text);
+  }
+
+  function handleNewTodoSubmit() {
+    const todo = {
+      id: Date.now(),
+      title: newTodo,
+      completed: false
+    };
+
+    const newTodos = [...todos];
+    newTodos.unshift(todo);
+    setTodos(newTodos);
+    setNewTodo('');
+  }
+
   return (
     <View style={styles.container}>
+      <TextInput
+        onChangeText={handleNewTodoEdit}
+        value={newTodo}
+      />
       <Button
-        onPress={() => alert('Hello World')}
+        onPress={handleNewTodoSubmit}
         title="Add new todo item"
       />
       <FlatList
@@ -44,6 +66,7 @@ export default function App() {
           return <TodoItem {...item} />
         }}
         keyExtractor={item => item.id}
+        extraData={todos}
       />
       <StatusBar style="auto" />
     </View>
