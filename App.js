@@ -59,6 +59,7 @@ function TodosScreen({ navigation }) {
         onPress={navigation.goBack}
       />
       <TextInput
+        style={styles.textInput}
         onChangeText={handleNewTodoEdit}
         value={newTodo}
       />
@@ -111,4 +112,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  textInput: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1
+  }
 });

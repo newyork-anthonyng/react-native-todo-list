@@ -2,11 +2,16 @@
   "name": "react-native-todo-list",
   "displayName": "react-native-todo-list",
   "expo": {
-    "name": "react-native-todo-list",
+    "name": "React Native Todo List",
     "slug": "react-native-todo-list",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "ios": {
+      "bundleIdentifier": "me.anthonyng.reactnativetest",
+      "buildNumber": "1.0.0"
+    }
   }
+
 }
